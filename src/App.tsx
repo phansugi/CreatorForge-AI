@@ -1396,12 +1396,6 @@ const ScriptGenerator = () => {
   const [script, setScript] = useState('');
   const { showToast } = useToast();
 
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTopic(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAudience(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTone(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLength(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setContentType(e.target.value)}
-
   const tones = [
     { id: 'storytelling', label: 'Storytelling' },
     { id: 'edukasi', label: 'Edukasi' },
@@ -1743,6 +1737,12 @@ const Filmmaker = () => {
       )}
     </div>
   );
+
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTopic(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAudience(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTone(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLength(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setContentType(e.target.value)}
 };
 
 // ====================== SETTINGS PAGE ======================
