@@ -1,14 +1,13 @@
-import { useState, useEffect, useRef, createContext, useContext } from 'react';
-import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect, createContext, useContext } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Wand2, Mic, Video, Users, Image, FileText, Film, Settings,
   Search, Bell, ChevronLeft, ChevronRight, Menu, X, Plus, Download, Play,
-  Pause, RefreshCw, Check, Clock, Loader2, Upload, Trash2, Send, History,
-  Crop, Eraser, ZoomIn, Sparkles, Palette, Type, Music, Volume2, VolumeX,
-  Instagram, Youtube, Twitter, Github, CreditCard, Shield, User, LogOut,
-  ChevronDown, CheckCircle2, Circle, AlertCircle, Star, TrendingUp, FolderOpen,
-  MoreHorizontal, Link2, Unlink, FileAudio, FileVideo, FileImage, Sliders,
-  Gauge, Wand, Timer, Smile, Zap, Target, Layout, List, Grid3x3, Rows, Columns
+  Pause, RefreshCw, Check, Loader2, Upload, History, Crop, Eraser, ZoomIn,
+  Sparkles, Palette, Type, Music, Volume2, Instagram, Youtube, Twitter,
+  CreditCard, Shield, User, LogOut, ChevronDown, CheckCircle2, Circle,
+  AlertCircle, Star, TrendingUp, FolderOpen, Link2, FileAudio, Gauge, Smile,
+  Zap, Briefcase, Camera, Box
 } from 'lucide-react';
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, BarChart, Bar,
@@ -1017,9 +1016,14 @@ const VideoGenerator = () => {
             </div>
             <div className="mt-4">
               <label className="text-sm text-gray-400 mb-2 block">Gambar Referensi (Opsional)</label>
-              <div className="border-2 border-dashed border-surface-600 rounded-lg p-4 text-center cursor-pointer hover:border-primary/50 transition-colors">
+              <div
+                className="border-2 border-dashed border-surface-600 rounded-lg p-4 text-center cursor-pointer hover:border-primary/50 transition-colors"
+                onClick={() => setReferenceImage('reference-uploaded.jpg')}
+              >
                 <Upload size={20} className="mx-auto text-gray-500 mb-1" />
-                <p className="text-sm text-gray-400">Upload gambar untuk image-to-video</p>
+                <p className="text-sm text-gray-400">
+                  {referenceImage ? `File terpilih: ${referenceImage}` : 'Upload gambar untuk image-to-video'}
+                </p>
               </div>
             </div>
             <button onClick={handleGenerate} disabled={generating} className={`mt-4 w-full py-3 rounded-lg font-medium flex items-center justify-center gap-2 ${generating ? 'bg-surface-600 text-gray-400' : 'btn-primary'}`}>
