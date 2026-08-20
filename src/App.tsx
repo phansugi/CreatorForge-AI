@@ -562,6 +562,12 @@ const UGCTool = () => {
   const [progress, setProgress] = useState(0);
   const { showToast } = useToast();
 
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setProductName(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setProductDesc(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSpeed(parseFloat(e.target.value))}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPitch(parseInt(e.target.value))}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmotion(parseInt(e.target.value))}
+
   const avatars = [
     { id: 'a1', name: 'Sarah', age: 24, img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop' },
     { id: 'a2', name: 'Budi', age: 28, img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop' },
@@ -583,7 +589,9 @@ const UGCTool = () => {
     { id: 'YouTube Shorts', ratio: '9:16', width: 270, height: 480 },
   ];
 
-  const selectedPlatformObj = platforms.find(p => p.id === platform) || platforms[0];
+  const selectedPlatformObj = platforms.find(p => p.id === platform) ?? {
+  id: 'TikTok', ratio: '9:16', width: 270, height: 480
+  };
 
   const handleGenerate = () => {
     if (!productName || !selectedAvatar) {
@@ -769,6 +777,13 @@ const VoiceOverTool = () => {
   ]);
   const { showToast } = useToast();
 
+  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setScript(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSpeed(parseFloat(e.target.value))}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPitch(parseInt(e.target.value))}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmotion(parseInt(e.target.value))}
+  // di kartu suara:
+  onClick={(e: React.MouseEvent) => { e.stopPropagation(); togglePlay(); }}
+
   const handleGenerate = () => {
     if (!script.trim()) {
       showToast('Tulis naskah terlebih dahulu', 'error');
@@ -935,6 +950,11 @@ const VideoGenerator = () => {
     { id: 'r2', title: 'Kota futuristik', status: 'Diproses', thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&h=200&fit=crop', duration: '8 dtk' },
   ]);
   const { showToast } = useToast();
+
+  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setPrompt(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setRatio(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setDuration(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setStyle(e.target.value)}
 
   const styles = [
     { id: 'realistic', label: 'Realistic', icon: Camera },
@@ -1265,6 +1285,8 @@ const ImageEditing = () => {
   const [beforeAfter, setBeforeAfter] = useState(50);
   const { showToast } = useToast();
 
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBeforeAfter(parseInt(e.target.value))}
+
   const tools = [
     { id: 'crop', label: 'Crop', icon: Crop },
     { id: 'remove-bg', label: 'Remove BG', icon: Eraser },
@@ -1373,6 +1395,12 @@ const ScriptGenerator = () => {
   const [generating, setGenerating] = useState(false);
   const [script, setScript] = useState('');
   const { showToast } = useToast();
+
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTopic(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAudience(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTone(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLength(e.target.value)}
+  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setContentType(e.target.value)}
 
   const tones = [
     { id: 'storytelling', label: 'Storytelling' },
