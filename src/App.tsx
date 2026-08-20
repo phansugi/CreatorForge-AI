@@ -1,17 +1,72 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard, Wand2, Mic, Video, Users, Image, FileText, Film, Settings,
-  Search, Bell, ChevronLeft, ChevronRight, Menu, X, Plus, Download, Play,
-  Pause, RefreshCw, Check, Loader2, Upload, History, Crop, Eraser, ZoomIn,
-  Sparkles, Palette, Type, Music, Volume2, Instagram, Youtube, Twitter,
-  CreditCard, Shield, User, LogOut, ChevronDown, CheckCircle2, Circle,
-  AlertCircle, Star, TrendingUp, FolderOpen, Link2, FileAudio, Gauge, Smile,
-  Zap, Briefcase, Camera, Box
+  LayoutDashboard,
+  Wand2,
+  Mic,
+  Video,
+  Users,
+  Image,
+  FileText,
+  Film,
+  Settings,
+  Search,
+  Bell,
+  ChevronLeft,
+  ChevronRight,
+  Menu,
+  X,
+  Plus,
+  Download,
+  Play,
+  Pause,
+  RefreshCw,
+  Check,
+  Loader2,
+  Upload,
+  History,
+  Crop,
+  Eraser,
+  ZoomIn,
+  Sparkles,
+  Palette,
+  Type,
+  Music,
+  Volume2,
+  Instagram,
+  Youtube,
+  Twitter,
+  CreditCard,
+  Shield,
+  User,
+  LogOut,
+  ChevronDown,
+  CheckCircle2,
+  Circle,
+  AlertCircle,
+  Star,
+  TrendingUp,
+  FolderOpen,
+  Link2,
+  FileAudio,
+  Gauge,
+  Smile,
+  Zap,
+  Briefcase,
+  Camera,
+  Box,
 } from 'lucide-react';
 import {
-  ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, BarChart, Bar,
-  CartesianGrid, Legend
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  BarChart,
+  Bar,
+  CartesianGrid,
+  Legend,
 } from 'recharts';
 
 // ====================== TYPES & MOCK DATA ======================
@@ -31,7 +86,6 @@ interface Voice {
   language: string;
   accent: string;
   gender: 'Male' | 'Female';
-  previewUrl?: string;
   avatarColor: string;
 }
 
@@ -50,12 +104,66 @@ interface Toast {
 }
 
 const mockProjects: Project[] = [
-  { id: '1', title: 'Review Serum Glowing - TikTok', thumbnail: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=200&fit=crop', status: 'Selesai', duration: '0:45', updatedAt: '2 jam lalu', type: 'UGC Video' },
-  { id: '2', title: 'Iklan Native Kopi Nusantara', thumbnail: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=200&fit=crop', status: 'Diproses', duration: '1:20', updatedAt: '5 jam lalu', type: 'Video Generator' },
-  { id: '3', title: 'Voice Over Explainer Produk', thumbnail: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=300&h=200&fit=crop', status: 'Draft', duration: '0:30', updatedAt: '1 hari lalu', type: 'Voice Over' },
-  { id: '4', title: 'Lipsync Testimoni Skincare', thumbnail: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=300&h=200&fit=crop', status: 'Selesai', duration: '0:52', updatedAt: '2 hari lalu', type: 'Lipsync' },
-  { id: '5', title: 'Foto Produk Background AI', thumbnail: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=200&fit=crop', status: 'Selesai', duration: '-', updatedAt: '3 hari lalu', type: 'Image Edit' },
-  { id: '6', title: 'Skrip Iklan Storytelling', thumbnail: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=300&h=200&fit=crop', status: 'Draft', duration: '2 hal', updatedAt: '4 hari lalu', type: 'Script' },
+  {
+    id: '1',
+    title: 'Review Serum Glowing - TikTok',
+    thumbnail:
+      'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=200&fit=crop',
+    status: 'Selesai',
+    duration: '0:45',
+    updatedAt: '2 jam lalu',
+    type: 'UGC Video',
+  },
+  {
+    id: '2',
+    title: 'Iklan Native Kopi Nusantara',
+    thumbnail:
+      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=200&fit=crop',
+    status: 'Diproses',
+    duration: '1:20',
+    updatedAt: '5 jam lalu',
+    type: 'Video Generator',
+  },
+  {
+    id: '3',
+    title: 'Voice Over Explainer Produk',
+    thumbnail:
+      'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=300&h=200&fit=crop',
+    status: 'Draft',
+    duration: '0:30',
+    updatedAt: '1 hari lalu',
+    type: 'Voice Over',
+  },
+  {
+    id: '4',
+    title: 'Lipsync Testimoni Skincare',
+    thumbnail:
+      'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=300&h=200&fit=crop',
+    status: 'Selesai',
+    duration: '0:52',
+    updatedAt: '2 hari lalu',
+    type: 'Lipsync',
+  },
+  {
+    id: '5',
+    title: 'Foto Produk Background AI',
+    thumbnail:
+      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=200&fit=crop',
+    status: 'Selesai',
+    duration: '-',
+    updatedAt: '3 hari lalu',
+    type: 'Image Edit',
+  },
+  {
+    id: '6',
+    title: 'Skrip Iklan Storytelling',
+    thumbnail:
+      'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=300&h=200&fit=crop',
+    status: 'Draft',
+    duration: '2 hal',
+    updatedAt: '4 hari lalu',
+    type: 'Script',
+  },
 ];
 
 const mockVoices: Voice[] = [
@@ -70,11 +178,41 @@ const mockVoices: Voice[] = [
 ];
 
 const mockTemplates: Template[] = [
-  { id: 't1', title: 'UGC Review Produk', image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&h=200&fit=crop', category: 'UGC', usageCount: 12893 },
-  { id: 't2', title: 'Iklan Storytelling', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop', category: 'Video', usageCount: 9842 },
-  { id: 't3', title: 'Voice Over Energik', image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&h=200&fit=crop', category: 'Audio', usageCount: 7561 },
-  { id: 't4', title: 'Lipsync Testimoni', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&h=200&fit=crop', category: 'Lipsync', usageCount: 6234 },
-  { id: 't5', title: 'Foto Produk AI', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop', category: 'Image', usageCount: 5120 },
+  {
+    id: 't1',
+    title: 'UGC Review Produk',
+    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&h=200&fit=crop',
+    category: 'UGC',
+    usageCount: 12893,
+  },
+  {
+    id: 't2',
+    title: 'Iklan Storytelling',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop',
+    category: 'Video',
+    usageCount: 9842,
+  },
+  {
+    id: 't3',
+    title: 'Voice Over Energik',
+    image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&h=200&fit=crop',
+    category: 'Audio',
+    usageCount: 7561,
+  },
+  {
+    id: 't4',
+    title: 'Lipsync Testimoni',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&h=200&fit=crop',
+    category: 'Lipsync',
+    usageCount: 6234,
+  },
+  {
+    id: 't5',
+    title: 'Foto Produk AI',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop',
+    category: 'Image',
+    usageCount: 5120,
+  },
 ];
 
 const activityData = [
@@ -103,7 +241,6 @@ interface ToastContextType {
 }
 
 const ToastContext = createContext<ToastContextType>({ showToast: () => {} });
-
 const useToast = () => useContext(ToastContext);
 
 // ====================== UTILITY COMPONENTS ======================
@@ -111,7 +248,15 @@ const Skeleton = ({ className }: { className?: string }) => (
   <div className={`skeleton ${className || ''}`} />
 );
 
-const EmptyState = ({ icon: Icon, title, description, actionLabel, onAction }: { icon: any, title: string, description: string, actionLabel?: string, onAction?: () => void }) => (
+interface EmptyStateProps {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  actionLabel?: string;
+  onAction?: () => void;
+}
+
+const EmptyState = ({ icon: Icon, title, description, actionLabel, onAction }: EmptyStateProps) => (
   <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
     <div className="w-20 h-20 rounded-full bg-gradient-primary-soft flex items-center justify-center mb-6">
       <Icon size={36} className="text-primary-light" />
@@ -137,17 +282,19 @@ const ProgressBar = ({ progress }: { progress: number }) => (
 
 const StatusBadge = ({ status }: { status: Project['status'] }) => {
   const styles = {
-    'Selesai': 'bg-green-500/20 text-green-400 border-green-500/30',
-    'Diproses': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-    'Draft': 'bg-gray-500/20 text-gray-400 border-gray-500/30',
+    Selesai: 'bg-green-500/20 text-green-400 border-green-500/30',
+    Diproses: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+    Draft: 'bg-gray-500/20 text-gray-400 border-gray-500/30',
   };
   const icons = {
-    'Selesai': <Check size={12} />,
-    'Diproses': <Loader2 size={12} className="animate-spin" />,
-    'Draft': <Circle size={12} />,
+    Selesai: <Check size={12} />,
+    Diproses: <Loader2 size={12} className="animate-spin" />,
+    Draft: <Circle size={12} />,
   };
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${styles[status]}`}>
+    <span
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${styles[status]}`}
+    >
       {icons[status]} {status}
     </span>
   );
@@ -175,9 +322,13 @@ const Sidebar = ({ collapsed, toggleCollapse }: SidebarProps) => {
   ];
 
   return (
-    <aside className={`fixed left-0 top-0 h-screen bg-surface-900 border-r border-surface-700 transition-all duration-300 z-50 ${collapsed ? 'w-16' : 'w-60'}`}>
+    <aside
+      className={`fixed left-0 top-0 h-screen bg-surface-900 border-r border-surface-700 transition-all duration-300 z-50 ${
+        collapsed ? 'w-16' : 'w-60'
+      }`}
+    >
       <div className="flex items-center justify-between p-4 border-b border-surface-700">
-        {!collapsed && (
+        {!collapsed ? (
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
               <Sparkles size={18} className="text-white" />
@@ -186,8 +337,7 @@ const Sidebar = ({ collapsed, toggleCollapse }: SidebarProps) => {
               CreatorForge
             </span>
           </div>
-        )}
-        {collapsed && (
+        ) : (
           <div className="w-8 h-8 mx-auto rounded-lg bg-gradient-primary flex items-center justify-center">
             <Sparkles size={18} className="text-white" />
           </div>
@@ -208,7 +358,11 @@ const Sidebar = ({ collapsed, toggleCollapse }: SidebarProps) => {
             <button
               key={item.path}
               onClick={() => navigate(item.path)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group ${isActive ? 'bg-gradient-primary-soft text-primary-light' : 'text-gray-400 hover:bg-surface-700 hover:text-gray-200'}`}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group ${
+                isActive
+                  ? 'bg-gradient-primary-soft text-primary-light'
+                  : 'text-gray-400 hover:bg-surface-700 hover:text-gray-200'
+              }`}
               title={collapsed ? item.label : undefined}
             >
               <Icon size={20} className="flex-shrink-0" />
@@ -253,7 +407,10 @@ const Topbar = ({ collapsed, onMenuClick }: TopbarProps) => {
   ];
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-40 glass border-b border-surface-700" style={{ marginLeft: collapsed ? '64px' : '240px' }}>
+    <header
+      className="fixed top-0 right-0 left-0 z-40 glass border-b border-surface-700"
+      style={{ marginLeft: collapsed ? '64px' : '240px' }}
+    >
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-3">
           <button onClick={onMenuClick} className="lg:hidden p-2 rounded-lg hover:bg-surface-700 text-gray-400">
@@ -261,11 +418,7 @@ const Topbar = ({ collapsed, onMenuClick }: TopbarProps) => {
           </button>
           <div className="relative hidden md:block w-80">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Cari project, template, atau tool..."
-              className="input-field pl-10 w-full"
-            />
+            <input type="text" placeholder="Cari project, template, atau tool..." className="input-field pl-10 w-full" />
           </div>
         </div>
 
@@ -285,7 +438,7 @@ const Topbar = ({ collapsed, onMenuClick }: TopbarProps) => {
                   <button className="text-xs text-primary-light hover:text-primary">Tandai semua dibaca</button>
                 </div>
                 <div className="max-h-80 overflow-y-auto">
-                  {notifications.map(n => (
+                  {notifications.map((n) => (
                     <div key={n.id} className={`p-3 rounded-lg hover:bg-surface-700 cursor-pointer ${n.unread ? 'bg-surface-800' : ''}`}>
                       <div className="flex items-start gap-2">
                         {n.unread && <div className="w-2 h-2 mt-1.5 rounded-full bg-primary flex-shrink-0" />}
@@ -318,14 +471,23 @@ const Topbar = ({ collapsed, onMenuClick }: TopbarProps) => {
                   <p className="text-sm font-medium text-gray-200">Andi Kurniawan</p>
                   <p className="text-xs text-gray-500">andi@creatorforge.ai</p>
                 </div>
-                <button className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-surface-700 rounded-lg" onClick={() => showToast('Fitur profil segera hadir', 'info')}>
+                <button
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-surface-700 rounded-lg"
+                  onClick={() => showToast('Fitur profil segera hadir', 'info')}
+                >
                   <User size={16} /> Profil
                 </button>
-                <button className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-surface-700 rounded-lg" onClick={() => showToast('Pengaturan dibuka', 'info')}>
+                <button
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-surface-700 rounded-lg"
+                  onClick={() => showToast('Pengaturan dibuka', 'info')}
+                >
                   <Settings size={16} /> Pengaturan
                 </button>
                 <div className="border-t border-surface-700 my-1" />
-                <button className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400 hover:bg-red-500/10 rounded-lg" onClick={() => showToast('Anda telah keluar', 'success')}>
+                <button
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400 hover:bg-red-500/10 rounded-lg"
+                  onClick={() => showToast('Anda telah keluar', 'success')}
+                >
                   <LogOut size={16} /> Keluar
                 </button>
               </div>
@@ -337,12 +499,27 @@ const Topbar = ({ collapsed, onMenuClick }: TopbarProps) => {
   );
 };
 
-// ====================== TOAST COMPONENT ======================
+// ====================== TOAST CONTAINER ======================
 const ToastContainer = ({ toasts }: { toasts: Toast[] }) => (
   <div className="fixed bottom-4 right-4 z-[100] space-y-2">
-    {toasts.map(toast => (
-      <div key={toast.id} className={`card px-4 py-3 flex items-center gap-3 animate-in slide-in-from-right ${toast.type === 'success' ? 'border-green-500/30 bg-green-500/10' : toast.type === 'error' ? 'border-red-500/30 bg-red-500/10' : 'border-primary/30 bg-primary/10'}`}>
-        {toast.type === 'success' ? <CheckCircle2 size={18} className="text-green-400" /> : toast.type === 'error' ? <AlertCircle size={18} className="text-red-400" /> : <Bell size={18} className="text-primary-light" />}
+    {toasts.map((toast) => (
+      <div
+        key={toast.id}
+        className={`card px-4 py-3 flex items-center gap-3 ${
+          toast.type === 'success'
+            ? 'border-green-500/30 bg-green-500/10'
+            : toast.type === 'error'
+            ? 'border-red-500/30 bg-red-500/10'
+            : 'border-primary/30 bg-primary/10'
+        }`}
+      >
+        {toast.type === 'success' ? (
+          <CheckCircle2 size={18} className="text-green-400" />
+        ) : toast.type === 'error' ? (
+          <AlertCircle size={18} className="text-red-400" />
+        ) : (
+          <Bell size={18} className="text-primary-light" />
+        )}
         <span className="text-sm text-gray-200">{toast.message}</span>
       </div>
     ))}
@@ -350,7 +527,12 @@ const ToastContainer = ({ toasts }: { toasts: Toast[] }) => (
 );
 
 // ====================== QUICK CREATE MODAL ======================
-const QuickCreateModal = ({ open, onClose }: { open: boolean, onClose: () => void }) => {
+interface QuickCreateModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+const QuickCreateModal = ({ open, onClose }: QuickCreateModalProps) => {
   const navigate = useNavigate();
   if (!open) return null;
   const options = [
@@ -364,16 +546,21 @@ const QuickCreateModal = ({ open, onClose }: { open: boolean, onClose: () => voi
 
   return (
     <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
-      <div className="card w-full max-w-2xl p-6" onClick={e => e.stopPropagation()}>
+      <div className="card w-full max-w-2xl p-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-gray-100">Quick Create</h2>
-          <button onClick={onClose} className="p-1 rounded-lg hover:bg-surface-700 text-gray-400"><X size={20} /></button>
+          <button onClick={onClose} className="p-1 rounded-lg hover:bg-surface-700 text-gray-400">
+            <X size={20} />
+          </button>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {options.map(opt => (
+          {options.map((opt) => (
             <button
               key={opt.path}
-              onClick={() => { navigate(opt.path); onClose(); }}
+              onClick={() => {
+                navigate(opt.path);
+                onClose();
+              }}
               className="p-4 rounded-xl bg-surface-800 border border-surface-600 hover:border-primary/50 hover:bg-surface-700 transition-all text-left group"
             >
               <div className="w-10 h-10 rounded-lg bg-gradient-primary-soft flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
@@ -393,7 +580,6 @@ const QuickCreateModal = ({ open, onClose }: { open: boolean, onClose: () => voi
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [quickCreateOpen, setQuickCreateOpen] = useState(false);
-  const { showToast } = useToast();
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200);
@@ -422,7 +608,9 @@ const Dashboard = () => {
       {loading ? (
         <div className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-28" />)}
+            {[...Array(4)].map((_, i) => (
+              <Skeleton key={i} className="h-28" />
+            ))}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Skeleton className="h-80 lg:col-span-2" />
@@ -479,9 +667,9 @@ const Dashboard = () => {
                     <YAxis stroke="#6B7280" fontSize={12} />
                     <Tooltip contentStyle={{ backgroundColor: '#1C1C28', border: '1px solid #2D2D3D', borderRadius: '8px' }} />
                     <Legend />
-                    <Bar dataKey="video" fill="#8B5CF6" radius={[4,4,0,0]} />
-                    <Bar dataKey="audio" fill="#06B6D4" radius={[4,4,0,0]} />
-                    <Bar dataKey="image" fill="#EC4899" radius={[4,4,0,0]} />
+                    <Bar dataKey="video" fill="#8B5CF6" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="audio" fill="#06B6D4" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="image" fill="#EC4899" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -495,10 +683,14 @@ const Dashboard = () => {
               <button className="text-sm text-primary-light hover:text-primary">Lihat semua</button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {mockProjects.slice(0, 4).map(project => (
+              {mockProjects.slice(0, 4).map((project) => (
                 <div key={project.id} className="card overflow-hidden group cursor-pointer hover:border-primary/30 transition-all">
                   <div className="aspect-video bg-surface-700 relative overflow-hidden">
-                    <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img
+                      src={project.thumbnail}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <button className="p-2 rounded-full bg-white/20 backdrop-blur text-white hover:bg-white/30">
                         <Play size={18} />
@@ -527,7 +719,7 @@ const Dashboard = () => {
               <button className="text-sm text-primary-light hover:text-primary">Jelajahi</button>
             </div>
             <div className="flex gap-4 overflow-x-auto pb-2">
-              {mockTemplates.map(template => (
+              {mockTemplates.map((template) => (
                 <div key={template.id} className="card min-w-[250px] overflow-hidden cursor-pointer hover:border-primary/30 transition-all flex-shrink-0">
                   <div className="aspect-video bg-surface-700 relative">
                     <img src={template.image} alt={template.title} className="w-full h-full object-cover" />
@@ -583,9 +775,7 @@ const UGCTool = () => {
     { id: 'YouTube Shorts', ratio: '9:16', width: 270, height: 480 },
   ];
 
-  const selectedPlatformObj = platforms.find(p => p.id === platform) ?? {
-  id: 'TikTok', ratio: '9:16', width: 270, height: 480
-  };
+  const selectedPlatformObj = platforms.find((p) => p.id === platform) ?? platforms[0];
 
   const handleGenerate = () => {
     if (!productName || !selectedAvatar) {
@@ -595,7 +785,7 @@ const UGCTool = () => {
     setGenerating(true);
     setProgress(0);
     const interval = setInterval(() => {
-      setProgress(prev => {
+      setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           setGenerating(false);
@@ -625,7 +815,7 @@ const UGCTool = () => {
                   className="input-field w-full"
                   placeholder="Contoh: Serum Vitamin C GlowUp"
                   value={productName}
-                  onChange={e => setProductName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setProductName(e.target.value)}
                 />
               </div>
               <div>
@@ -634,7 +824,7 @@ const UGCTool = () => {
                   className="input-field w-full h-28 resize-none"
                   placeholder="Jelaskan manfaat, keunggulan, dan target pengguna..."
                   value={productDesc}
-                  onChange={e => setProductDesc(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setProductDesc(e.target.value)}
                 />
               </div>
               <div>
@@ -650,11 +840,15 @@ const UGCTool = () => {
           <div className="card p-6">
             <h3 className="font-semibold text-gray-200 mb-4">Pilih Avatar AI</h3>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-              {avatars.map(avatar => (
+              {avatars.map((avatar) => (
                 <button
                   key={avatar.id}
                   onClick={() => setSelectedAvatar(avatar.id)}
-                  className={`relative rounded-xl overflow-hidden aspect-square border-2 transition-all ${selectedAvatar === avatar.id ? 'border-primary ring-2 ring-primary/30' : 'border-transparent hover:border-surface-500'}`}
+                  className={`relative rounded-xl overflow-hidden aspect-square border-2 transition-all ${
+                    selectedAvatar === avatar.id
+                      ? 'border-primary ring-2 ring-primary/30'
+                      : 'border-transparent hover:border-surface-500'
+                  }`}
                 >
                   <img src={avatar.img} alt={avatar.name} className="w-full h-full object-cover" />
                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur px-1 py-0.5">
@@ -673,13 +867,20 @@ const UGCTool = () => {
           <div className="card p-6">
             <h3 className="font-semibold text-gray-200 mb-4">Gaya Bicara</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {speakingStyles.map(style => (
+              {speakingStyles.map((style) => (
                 <button
                   key={style.id}
                   onClick={() => setSpeakingStyle(style.id)}
-                  className={`p-4 rounded-lg border transition-all text-left ${speakingStyle === style.id ? 'border-primary bg-primary/10' : 'border-surface-600 hover:border-surface-500'}`}
+                  className={`p-4 rounded-lg border transition-all text-left ${
+                    speakingStyle === style.id
+                      ? 'border-primary bg-primary/10'
+                      : 'border-surface-600 hover:border-surface-500'
+                  }`}
                 >
-                  <style.icon size={20} className={`mb-2 ${speakingStyle === style.id ? 'text-primary-light' : 'text-gray-400'}`} />
+                  <style.icon
+                    size={20}
+                    className={`mb-2 ${speakingStyle === style.id ? 'text-primary-light' : 'text-gray-400'}`}
+                  />
                   <p className="font-medium text-gray-200">{style.label}</p>
                   <p className="text-xs text-gray-500">{style.desc}</p>
                 </button>
@@ -690,11 +891,15 @@ const UGCTool = () => {
           <div className="card p-6">
             <h3 className="font-semibold text-gray-200 mb-4">Platform Target</h3>
             <div className="flex flex-wrap gap-3">
-              {platforms.map(p => (
+              {platforms.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => setPlatform(p.id)}
-                  className={`px-4 py-2 rounded-lg border transition-all ${platform === p.id ? 'border-primary bg-primary/10 text-primary-light' : 'border-surface-600 text-gray-400 hover:border-surface-500'}`}
+                  className={`px-4 py-2 rounded-lg border transition-all ${
+                    platform === p.id
+                      ? 'border-primary bg-primary/10 text-primary-light'
+                      : 'border-surface-600 text-gray-400 hover:border-surface-500'
+                  }`}
                 >
                   {p.id}
                 </button>
@@ -719,7 +924,7 @@ const UGCTool = () => {
                     <p className="text-gray-600 text-sm">Preview Video</p>
                     {selectedAvatar && (
                       <img
-                        src={avatars.find(a => a.id === selectedAvatar)?.img}
+                        src={avatars.find((a) => a.id === selectedAvatar)?.img}
                         className="absolute inset-0 w-full h-full object-cover opacity-50"
                         alt="avatar"
                       />
@@ -743,7 +948,9 @@ const UGCTool = () => {
             <button
               onClick={handleGenerate}
               disabled={generating}
-              className={`w-full py-3 rounded-lg font-medium flex items-center justify-center gap-2 ${generating ? 'bg-surface-600 text-gray-400 cursor-not-allowed' : 'btn-primary'}`}
+              className={`w-full py-3 rounded-lg font-medium flex items-center justify-center gap-2 ${
+                generating ? 'bg-surface-600 text-gray-400 cursor-not-allowed' : 'btn-primary'
+              }`}
             >
               {generating ? <Loader2 size={18} className="animate-spin" /> : <Wand2 size={18} />}
               {generating ? 'Generating...' : 'Generate Video UGC'}
@@ -754,12 +961,6 @@ const UGCTool = () => {
       </div>
     </div>
   );
-
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setProductName(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setProductDesc(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSpeed(parseFloat(e.target.value))}
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPitch(parseInt(e.target.value))}
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmotion(parseInt(e.target.value))}
 };
 
 // ====================== VOICE OVER TOOL PAGE ======================
@@ -783,12 +984,11 @@ const VoiceOverTool = () => {
       return;
     }
     showToast('Voice over sedang diproses...', 'info');
-    // Simulasi
     setTimeout(() => {
       const newItem = {
         id: Date.now().toString(),
         title: script.slice(0, 40) + '...',
-        voice: mockVoices.find(v => v.id === selectedVoice)?.name || 'Aruna',
+        voice: mockVoices.find((v) => v.id === selectedVoice)?.name || 'Aruna',
         duration: '0:32',
         date: 'Baru saja',
       };
@@ -817,7 +1017,7 @@ const VoiceOverTool = () => {
               className="input-field w-full h-40 resize-none"
               placeholder="Tulis atau tempel naskah voice over di sini..."
               value={script}
-              onChange={e => setScript(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setScript(e.target.value)}
             />
             <div className="flex items-center justify-between mt-2">
               <span className="text-xs text-gray-500">{script.length} karakter</span>
@@ -830,22 +1030,34 @@ const VoiceOverTool = () => {
           <div className="card p-6">
             <h3 className="font-semibold text-gray-200 mb-4">Library Suara AI</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {mockVoices.map(voice => (
+              {mockVoices.map((voice) => (
                 <div
                   key={voice.id}
-                  className={`p-4 rounded-lg border transition-all cursor-pointer ${selectedVoice === voice.id ? 'border-primary bg-primary/10' : 'border-surface-600 hover:border-surface-500'}`}
+                  className={`p-4 rounded-lg border transition-all cursor-pointer ${
+                    selectedVoice === voice.id
+                      ? 'border-primary bg-primary/10'
+                      : 'border-surface-600 hover:border-surface-500'
+                  }`}
                   onClick={() => setSelectedVoice(voice.id)}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: voice.avatarColor }}>
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
+                      style={{ backgroundColor: voice.avatarColor }}
+                    >
                       {voice.name.charAt(0)}
                     </div>
                     <div className="flex-1">
                       <p className="font-medium text-gray-200">{voice.name}</p>
-                      <p className="text-xs text-gray-500">{voice.language} • {voice.accent} • {voice.gender}</p>
+                      <p className="text-xs text-gray-500">
+                        {voice.language} • {voice.accent} • {voice.gender}
+                      </p>
                     </div>
                     <button
-                      onClick={(e) => { e.stopPropagation(); togglePlay(); }}
+                      onClick={(e: React.MouseEvent) => {
+                        e.stopPropagation();
+                        togglePlay();
+                      }}
                       className="p-2 rounded-full bg-surface-700 text-gray-300 hover:text-white"
                     >
                       {isPlaying && selectedVoice === voice.id ? <Pause size={16} /> : <Play size={16} />}
@@ -874,21 +1086,45 @@ const VoiceOverTool = () => {
                   <span>Kecepatan Bicara</span>
                   <span className="text-primary-light font-medium">{speed.toFixed(1)}x</span>
                 </label>
-                <input type="range" min="0.5" max="2" step="0.1" value={speed} onChange={e => setSpeed(parseFloat(e.target.value))} className="w-full accent-primary" />
+                <input
+                  type="range"
+                  min="0.5"
+                  max="2"
+                  step="0.1"
+                  value={speed}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSpeed(parseFloat(e.target.value))}
+                  className="w-full accent-primary"
+                />
               </div>
               <div>
                 <label className="text-sm text-gray-400 mb-2 flex items-center justify-between">
                   <span>Nada (Pitch)</span>
                   <span className="text-primary-light font-medium">{pitch > 0 ? '+' : ''}{pitch}%</span>
                 </label>
-                <input type="range" min="-20" max="20" step="1" value={pitch} onChange={e => setPitch(parseInt(e.target.value))} className="w-full accent-primary" />
+                <input
+                  type="range"
+                  min="-20"
+                  max="20"
+                  step="1"
+                  value={pitch}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPitch(parseInt(e.target.value))}
+                  className="w-full accent-primary"
+                />
               </div>
               <div>
                 <label className="text-sm text-gray-400 mb-2 flex items-center justify-between">
                   <span>Intensitas Emosi</span>
                   <span className="text-primary-light font-medium">{emotion}%</span>
                 </label>
-                <input type="range" min="0" max="100" step="1" value={emotion} onChange={e => setEmotion(parseInt(e.target.value))} className="w-full accent-primary" />
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value={emotion}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmotion(parseInt(e.target.value))}
+                  className="w-full accent-primary"
+                />
               </div>
             </div>
           </div>
@@ -902,7 +1138,7 @@ const VoiceOverTool = () => {
           <div className="card p-6">
             <h3 className="font-semibold text-gray-200 mb-4">Riwayat</h3>
             <div className="space-y-3">
-              {history.map(item => (
+              {history.map((item) => (
                 <div key={item.id} className="p-3 rounded-lg bg-surface-800 border border-surface-600">
                   <div className="flex items-center gap-2">
                     <button className="p-1.5 rounded-full bg-surface-700 text-gray-300 hover:text-white">
@@ -910,7 +1146,9 @@ const VoiceOverTool = () => {
                     </button>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-200 truncate">{item.title}</p>
-                      <p className="text-xs text-gray-500">{item.voice} • {item.duration} • {item.date}</p>
+                      <p className="text-xs text-gray-500">
+                        {item.voice} • {item.duration} • {item.date}
+                      </p>
                     </div>
                     <button className="p-1.5 rounded hover:bg-surface-700 text-gray-400" title="Download">
                       <Download size={14} />
@@ -920,20 +1158,17 @@ const VoiceOverTool = () => {
               ))}
             </div>
             {history.length === 0 && (
-              <EmptyState icon={FileAudio} title="Belum ada voice over" description="Voice over yang Anda buat akan muncul di sini." />
+              <EmptyState
+                icon={FileAudio}
+                title="Belum ada voice over"
+                description="Voice over yang Anda buat akan muncul di sini."
+              />
             )}
           </div>
         </div>
       </div>
     </div>
   );
-
-  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setScript(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSpeed(parseFloat(e.target.value))}
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPitch(parseInt(e.target.value))}
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmotion(parseInt(e.target.value))}
-  // di kartu suara:
-  onClick={(e: React.MouseEvent) => { e.stopPropagation(); togglePlay(); }}
 };
 
 // ====================== VIDEO GENERATOR PAGE ======================
@@ -946,8 +1181,8 @@ const VideoGenerator = () => {
   const [generating, setGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [results, setResults] = useState([
-    { id: 'r1', title: 'Sunset di pantai', status: 'Selesai', thumbnail: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=200&fit=crop', duration: '5 dtk' },
-    { id: 'r2', title: 'Kota futuristik', status: 'Diproses', thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&h=200&fit=crop', duration: '8 dtk' },
+    { id: 'r1', title: 'Sunset di pantai', status: 'Selesai' as const, thumbnail: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=200&fit=crop', duration: '5 dtk' },
+    { id: 'r2', title: 'Kota futuristik', status: 'Diproses' as const, thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&h=200&fit=crop', duration: '8 dtk' },
   ]);
   const { showToast } = useToast();
 
@@ -966,7 +1201,7 @@ const VideoGenerator = () => {
     setGenerating(true);
     setProgress(0);
     const interval = setInterval(() => {
-      setProgress(prev => {
+      setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           setGenerating(false);
@@ -999,12 +1234,12 @@ const VideoGenerator = () => {
               className="input-field w-full h-28 resize-none"
               placeholder="Contoh: Seorang wanita berjalan di pantai saat matahari terbenam, sinematik, cahaya hangat..."
               value={prompt}
-              onChange={e => setPrompt(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setPrompt(e.target.value)}
             />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
               <div>
                 <label className="text-sm text-gray-400 mb-2 block">Rasio Aspek</label>
-                <select className="input-field w-full" value={ratio} onChange={e => setRatio(e.target.value)}>
+                <select className="input-field w-full" value={ratio} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setRatio(e.target.value)}>
                   <option value="9:16">9:16 (Vertical)</option>
                   <option value="1:1">1:1 (Square)</option>
                   <option value="16:9">16:9 (Horizontal)</option>
@@ -1012,7 +1247,7 @@ const VideoGenerator = () => {
               </div>
               <div>
                 <label className="text-sm text-gray-400 mb-2 block">Durasi</label>
-                <select className="input-field w-full" value={duration} onChange={e => setDuration(e.target.value)}>
+                <select className="input-field w-full" value={duration} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setDuration(e.target.value)}>
                   <option value="5 detik">5 detik</option>
                   <option value="8 detik">8 detik</option>
                   <option value="10 detik">10 detik</option>
@@ -1021,7 +1256,7 @@ const VideoGenerator = () => {
               </div>
               <div>
                 <label className="text-sm text-gray-400 mb-2 block">Gaya Visual</label>
-                <select className="input-field w-full" value={style} onChange={e => setStyle(e.target.value)}>
+                <select className="input-field w-full" value={style} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setStyle(e.target.value)}>
                   <option value="realistic">Realistic</option>
                   <option value="cinematic">Cinematic</option>
                   <option value="animasi">Animasi</option>
@@ -1041,7 +1276,13 @@ const VideoGenerator = () => {
                 </p>
               </div>
             </div>
-            <button onClick={handleGenerate} disabled={generating} className={`mt-4 w-full py-3 rounded-lg font-medium flex items-center justify-center gap-2 ${generating ? 'bg-surface-600 text-gray-400' : 'btn-primary'}`}>
+            <button
+              onClick={handleGenerate}
+              disabled={generating}
+              className={`mt-4 w-full py-3 rounded-lg font-medium flex items-center justify-center gap-2 ${
+                generating ? 'bg-surface-600 text-gray-400' : 'btn-primary'
+              }`}
+            >
               {generating ? <Loader2 size={18} className="animate-spin" /> : <Video size={18} />}
               {generating ? 'Generating...' : 'Generate Video'}
             </button>
@@ -1051,7 +1292,7 @@ const VideoGenerator = () => {
           <div className="mt-8">
             <h3 className="font-semibold text-gray-200 mb-4">Hasil Generate</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {results.map(result => (
+              {results.map((result) => (
                 <div key={result.id} className="card overflow-hidden group">
                   <div className="aspect-video bg-surface-700 relative">
                     <img src={result.thumbnail} alt={result.title} className="w-full h-full object-cover" />
@@ -1094,11 +1335,6 @@ const VideoGenerator = () => {
       </div>
     </div>
   );
-
-  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setPrompt(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setRatio(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setDuration(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setStyle(e.target.value)}
 };
 
 // ====================== LIPSYNC STUDIO PAGE ======================
@@ -1131,7 +1367,7 @@ const LipsyncStudio = () => {
       setRendering(true);
       setProgress(0);
       const interval = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev) => {
           if (prev >= 100) {
             clearInterval(interval);
             setRendering(false);
@@ -1153,11 +1389,17 @@ const LipsyncStudio = () => {
       <div className="flex items-center mb-8">
         {steps.map((s, i) => (
           <div key={s.id} className="flex items-center flex-1">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step >= s.id ? 'bg-gradient-primary text-white' : 'bg-surface-700 text-gray-500'}`}>
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                step >= s.id ? 'bg-gradient-primary text-white' : 'bg-surface-700 text-gray-500'
+              }`}
+            >
               {step > s.id ? <Check size={16} /> : s.id}
             </div>
             <span className={`ml-2 text-sm ${step >= s.id ? 'text-gray-200 font-medium' : 'text-gray-500'}`}>{s.label}</span>
-            {i < steps.length - 1 && <div className={`flex-1 h-0.5 mx-4 ${step > s.id ? 'bg-gradient-primary' : 'bg-surface-700'}`} />}
+            {i < steps.length - 1 && (
+              <div className={`flex-1 h-0.5 mx-4 ${step > s.id ? 'bg-gradient-primary' : 'bg-surface-700'}`} />
+            )}
           </div>
         ))}
       </div>
@@ -1211,7 +1453,6 @@ const LipsyncStudio = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-surface-800 to-surface-900" />
                     <Users size={48} className="text-gray-600" />
                     <div className="absolute bottom-0 left-0 right-0 p-4">
-                      {/* Waveform placeholder */}
                       <div className="flex items-center gap-0.5 h-12">
                         {[...Array(40)].map((_, i) => (
                           <div key={i} className="flex-1 bg-primary/60 rounded-full" style={{ height: `${Math.random() * 100}%` }} />
@@ -1285,8 +1526,6 @@ const ImageEditing = () => {
   const [beforeAfter, setBeforeAfter] = useState(50);
   const { showToast } = useToast();
 
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBeforeAfter(parseInt(e.target.value))}
-
   const tools = [
     { id: 'crop', label: 'Crop', icon: Crop },
     { id: 'remove-bg', label: 'Remove BG', icon: Eraser },
@@ -1297,8 +1536,8 @@ const ImageEditing = () => {
   ];
 
   const handleToolAction = (tool: string) => {
-    showToast(`${tools.find(t => t.id === tool)?.label} berhasil diterapkan`, 'success');
-    setHistory(prev => [...prev, `${tools.find(t => t.id === tool)?.label} Applied`]);
+    showToast(`${tools.find((t) => t.id === tool)?.label} berhasil diterapkan`, 'success');
+    setHistory((prev) => [...prev, `${tools.find((t) => t.id === tool)?.label} Applied`]);
   };
 
   return (
@@ -1311,11 +1550,18 @@ const ImageEditing = () => {
         <div className="card p-4 lg:col-span-1">
           <h3 className="font-semibold text-gray-200 mb-3">Tools</h3>
           <div className="space-y-2">
-            {tools.map(tool => (
+            {tools.map((tool) => (
               <button
                 key={tool.id}
-                onClick={() => { setActiveTool(tool.id); if (tool.id !== 'crop') handleToolAction(tool.id); }}
-                className={`w-full flex items-center gap-2 p-2.5 rounded-lg transition-all ${activeTool === tool.id ? 'bg-primary/10 text-primary-light border border-primary/30' : 'text-gray-400 hover:bg-surface-700 border border-transparent'}`}
+                onClick={() => {
+                  setActiveTool(tool.id);
+                  if (tool.id !== 'crop') handleToolAction(tool.id);
+                }}
+                className={`w-full flex items-center gap-2 p-2.5 rounded-lg transition-all ${
+                  activeTool === tool.id
+                    ? 'bg-primary/10 text-primary-light border border-primary/30'
+                    : 'text-gray-400 hover:bg-surface-700 border border-transparent'
+                }`}
               >
                 <tool.icon size={18} />
                 <span className="text-sm">{tool.label}</span>
@@ -1332,7 +1578,6 @@ const ImageEditing = () => {
               alt="Product"
               className="w-full h-full object-cover"
             />
-            {/* Before/After overlay */}
             <div className="absolute inset-0 pointer-events-none" style={{ clipPath: `inset(0 ${100 - beforeAfter}% 0 0)` }}>
               <img
                 src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop&sat=-100"
@@ -1346,7 +1591,7 @@ const ImageEditing = () => {
                 min="0"
                 max="100"
                 value={beforeAfter}
-                onChange={e => setBeforeAfter(parseInt(e.target.value))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBeforeAfter(parseInt(e.target.value))}
                 className="w-full accent-primary"
               />
               <div className="flex justify-between text-xs text-gray-400 mt-1">
@@ -1362,7 +1607,12 @@ const ImageEditing = () => {
           <h3 className="font-semibold text-gray-200 mb-3">Riwayat Perubahan</h3>
           <div className="space-y-2 max-h-64 overflow-y-auto mb-4">
             {history.map((item, i) => (
-              <div key={i} className={`p-2 rounded-lg text-sm flex items-center gap-2 ${i === history.length - 1 ? 'bg-primary/10 text-primary-light' : 'text-gray-400'}`}>
+              <div
+                key={i}
+                className={`p-2 rounded-lg text-sm flex items-center gap-2 ${
+                  i === history.length - 1 ? 'bg-primary/10 text-primary-light' : 'text-gray-400'
+                }`}
+              >
                 {i === history.length - 1 ? <Check size={14} /> : <History size={14} />}
                 {item}
               </div>
@@ -1456,21 +1706,35 @@ Klik link di bio untuk dapatkan diskon 30% hari ini! Stok terbatas. 🛍️`);
             <div className="space-y-4">
               <div>
                 <label className="text-sm text-gray-400 mb-2 block">Topik / Produk</label>
-                <input type="text" className="input-field w-full" placeholder="Contoh: Serum Vitamin C" value={topic} onChange={e => setTopic(e.target.value)} />
+                <input
+                  type="text"
+                  className="input-field w-full"
+                  placeholder="Contoh: Serum Vitamin C"
+                  value={topic}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTopic(e.target.value)}
+                />
               </div>
               <div>
                 <label className="text-sm text-gray-400 mb-2 block">Target Audiens</label>
-                <input type="text" className="input-field w-full" placeholder="Contoh: Wanita 20-35 tahun" value={audience} onChange={e => setAudience(e.target.value)} />
+                <input
+                  type="text"
+                  className="input-field w-full"
+                  placeholder="Contoh: Wanita 20-35 tahun"
+                  value={audience}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAudience(e.target.value)}
+                />
               </div>
               <div>
                 <label className="text-sm text-gray-400 mb-2 block">Tone of Voice</label>
-                <select className="input-field w-full" value={tone} onChange={e => setTone(e.target.value)}>
-                  {tones.map(t => <option key={t.id} value={t.id}>{t.label}</option>)}
+                <select className="input-field w-full" value={tone} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTone(e.target.value)}>
+                  {tones.map((t) => (
+                    <option key={t.id} value={t.id}>{t.label}</option>
+                  ))}
                 </select>
               </div>
               <div>
                 <label className="text-sm text-gray-400 mb-2 block">Panjang Naskah</label>
-                <select className="input-field w-full" value={length} onChange={e => setLength(e.target.value)}>
+                <select className="input-field w-full" value={length} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLength(e.target.value)}>
                   <option value="short">Pendek (30 detik)</option>
                   <option value="medium">Sedang (1 menit)</option>
                   <option value="long">Panjang (2-3 menit)</option>
@@ -1478,11 +1742,17 @@ Klik link di bio untuk dapatkan diskon 30% hari ini! Stok terbatas. 🛍️`);
               </div>
               <div>
                 <label className="text-sm text-gray-400 mb-2 block">Jenis Konten</label>
-                <select className="input-field w-full" value={contentType} onChange={e => setContentType(e.target.value)}>
-                  {contentTypes.map(t => <option key={t.id} value={t.id}>{t.label}</option>)}
+                <select className="input-field w-full" value={contentType} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setContentType(e.target.value)}>
+                  {contentTypes.map((t) => (
+                    <option key={t.id} value={t.id}>{t.label}</option>
+                  ))}
                 </select>
               </div>
-              <button onClick={handleGenerate} disabled={generating} className="btn-primary w-full py-2.5 flex items-center justify-center gap-2">
+              <button
+                onClick={handleGenerate}
+                disabled={generating}
+                className="btn-primary w-full py-2.5 flex items-center justify-center gap-2"
+              >
                 {generating ? <Loader2 size={18} className="animate-spin" /> : <FileText size={18} />}
                 {generating ? 'Generating...' : 'Generate Script'}
               </button>
@@ -1498,21 +1768,27 @@ Klik link di bio untuk dapatkan diskon 30% hari ini! Stok terbatas. 🛍️`);
                 <div className="p-4 rounded-lg bg-purple-500/10 border border-purple-500/30">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-semibold text-purple-400 uppercase">Hook</span>
-                    <button onClick={() => handleRegenerateSection('Hook')} className="text-xs text-gray-400 hover:text-white flex items-center gap-1"><RefreshCw size={12} /> Regenerate</button>
+                    <button onClick={() => handleRegenerateSection('Hook')} className="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+                      <RefreshCw size={12} /> Regenerate
+                    </button>
                   </div>
                   <p className="text-sm text-gray-200 whitespace-pre-wrap">{script.split('ISI:')[0].replace('HOOK:', '').trim()}</p>
                 </div>
                 <div className="p-4 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-semibold text-cyan-400 uppercase">Isi</span>
-                    <button onClick={() => handleRegenerateSection('Isi')} className="text-xs text-gray-400 hover:text-white flex items-center gap-1"><RefreshCw size={12} /> Regenerate</button>
+                    <button onClick={() => handleRegenerateSection('Isi')} className="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+                      <RefreshCw size={12} /> Regenerate
+                    </button>
                   </div>
                   <p className="text-sm text-gray-200 whitespace-pre-wrap">{script.split('ISI:')[1]?.split('CALL-TO-ACTION:')[0].trim()}</p>
                 </div>
                 <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/30">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-semibold text-green-400 uppercase">Call-to-Action</span>
-                    <button onClick={() => handleRegenerateSection('CTA')} className="text-xs text-gray-400 hover:text-white flex items-center gap-1"><RefreshCw size={12} /> Regenerate</button>
+                    <button onClick={() => handleRegenerateSection('CTA')} className="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+                      <RefreshCw size={12} /> Regenerate
+                    </button>
                   </div>
                   <p className="text-sm text-gray-200 whitespace-pre-wrap">{script.split('CALL-TO-ACTION:')[1]?.trim()}</p>
                 </div>
@@ -1523,7 +1799,11 @@ Klik link di bio untuk dapatkan diskon 30% hari ini! Stok terbatas. 🛍️`);
                 </div>
               </div>
             ) : (
-              <EmptyState icon={FileText} title="Belum ada skrip" description="Isi parameter di kiri dan klik Generate untuk membuat skrip konten." />
+              <EmptyState
+                icon={FileText}
+                title="Belum ada skrip"
+                description="Isi parameter di kiri dan klik Generate untuk membuat skrip konten."
+              />
             )}
           </div>
         </div>
@@ -1547,17 +1827,29 @@ const Filmmaker = () => {
   ];
 
   const timelineTracks = [
-    { type: 'video', label: 'Video', clips: [
-      { id: 'c1', title: 'UGC Review Serum', start: '00:00', duration: '00:45', color: 'bg-purple-500/30 border-purple-500/50' },
-      { id: 'c2', title: 'B-roll Produk', start: '00:45', duration: '00:20', color: 'bg-cyan-500/30 border-cyan-500/50' },
-    ]},
-    { type: 'audio', label: 'Audio', clips: [
-      { id: 'c3', title: 'VO Aruna', start: '00:00', duration: '00:30', color: 'bg-green-500/30 border-green-500/50' },
-      { id: 'c4', title: 'Musik Latar', start: '00:00', duration: '01:00', color: 'bg-yellow-500/30 border-yellow-500/50' },
-    ]},
-    { type: 'text', label: 'Teks/Caption', clips: [
-      { id: 'c5', title: 'Caption Text', start: '00:05', duration: '00:10', color: 'bg-pink-500/30 border-pink-500/50' },
-    ]},
+    {
+      type: 'video',
+      label: 'Video',
+      clips: [
+        { id: 'c1', title: 'UGC Review Serum', start: '00:00', duration: '00:45', color: 'bg-purple-500/30 border-purple-500/50' },
+        { id: 'c2', title: 'B-roll Produk', start: '00:45', duration: '00:20', color: 'bg-cyan-500/30 border-cyan-500/50' },
+      ],
+    },
+    {
+      type: 'audio',
+      label: 'Audio',
+      clips: [
+        { id: 'c3', title: 'VO Aruna', start: '00:00', duration: '00:30', color: 'bg-green-500/30 border-green-500/50' },
+        { id: 'c4', title: 'Musik Latar', start: '00:00', duration: '01:00', color: 'bg-yellow-500/30 border-yellow-500/50' },
+      ],
+    },
+    {
+      type: 'text',
+      label: 'Teks/Caption',
+      clips: [
+        { id: 'c5', title: 'Caption Text', start: '00:05', duration: '00:10', color: 'bg-pink-500/30 border-pink-500/50' },
+      ],
+    },
   ];
 
   const handleExport = () => {
@@ -1583,11 +1875,15 @@ const Filmmaker = () => {
         <div className="card p-4 lg:col-span-1">
           <h3 className="font-semibold text-gray-200 mb-3">Media Library</h3>
           <div className="space-y-2">
-            {mediaLibrary.map(item => (
+            {mediaLibrary.map((item) => (
               <div
                 key={item.id}
                 onClick={() => setSelectedClip(item.id)}
-                className={`p-2 rounded-lg cursor-pointer transition-all ${selectedClip === item.id ? 'bg-primary/10 border border-primary/30' : 'hover:bg-surface-700 border border-transparent'}`}
+                className={`p-2 rounded-lg cursor-pointer transition-all ${
+                  selectedClip === item.id
+                    ? 'bg-primary/10 border border-primary/30'
+                    : 'hover:bg-surface-700 border border-transparent'
+                }`}
               >
                 {item.type === 'video' ? (
                   <div className="flex items-center gap-2">
@@ -1642,19 +1938,19 @@ const Filmmaker = () => {
           <div className="card p-4">
             <h3 className="font-semibold text-gray-200 mb-3">Timeline</h3>
             <div className="space-y-3">
-              {timelineTracks.map(track => (
+              {timelineTracks.map((track) => (
                 <div key={track.type} className="flex gap-2">
                   <div className="w-16 flex-shrink-0">
                     <p className="text-xs text-gray-500">{track.label}</p>
                   </div>
                   <div className="flex-1 relative h-10 bg-surface-800 rounded-lg overflow-hidden">
-                    {track.clips.map(clip => (
+                    {track.clips.map((clip) => (
                       <div
                         key={clip.id}
                         className={`absolute top-0 h-full rounded border ${clip.color} flex items-center px-2 text-xs text-white truncate cursor-pointer hover:opacity-80 transition-opacity`}
                         style={{
-                          left: `calc(${parseFloat(clip.start) * 100 / 65}% )`,
-                          width: `calc(${parseFloat(clip.duration) * 100 / 65}% )`,
+                          left: `calc(${(parseFloat(clip.start) * 100) / 65}% )`,
+                          width: `calc(${(parseFloat(clip.duration) * 100) / 65}% )`,
                         }}
                         title={clip.title}
                       >
@@ -1709,7 +2005,7 @@ const Filmmaker = () => {
       {/* Export Modal */}
       {exportOpen && (
         <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={() => setExportOpen(false)}>
-          <div className="card w-full max-w-md p-6" onClick={e => e.stopPropagation()}>
+          <div className="card w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>
             <h3 className="text-lg font-semibold text-gray-100 mb-4">Export Video</h3>
             <div className="space-y-4">
               <div>
@@ -1737,12 +2033,6 @@ const Filmmaker = () => {
       )}
     </div>
   );
-
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTopic(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAudience(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTone(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLength(e.target.value)}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setContentType(e.target.value)}
 };
 
 // ====================== SETTINGS PAGE ======================
@@ -1773,11 +2063,13 @@ const SettingsPage = () => {
         {/* Tab Navigation */}
         <div className="lg:w-64 flex-shrink-0">
           <div className="card p-2 space-y-1">
-            {tabs.map(tab => (
+            {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all ${activeTab === tab.id ? 'bg-primary/10 text-primary-light' : 'text-gray-400 hover:bg-surface-700'}`}
+                className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all ${
+                  activeTab === tab.id ? 'bg-primary/10 text-primary-light' : 'text-gray-400 hover:bg-surface-700'
+                }`}
               >
                 <tab.icon size={18} />
                 <span className="text-sm">{tab.label}</span>
@@ -1819,7 +2111,9 @@ const SettingsPage = () => {
                   </select>
                 </div>
               </div>
-              <button onClick={() => showToast('Profil berhasil disimpan', 'success')} className="btn-primary">Simpan Perubahan</button>
+              <button onClick={() => showToast('Profil berhasil disimpan', 'success')} className="btn-primary">
+                Simpan Perubahan
+              </button>
             </div>
           )}
 
@@ -1877,7 +2171,9 @@ const SettingsPage = () => {
                   </select>
                 </div>
               </div>
-              <button onClick={() => showToast('Preferensi brand disimpan', 'success')} className="btn-primary">Simpan</button>
+              <button onClick={() => showToast('Preferensi brand disimpan', 'success')} className="btn-primary">
+                Simpan
+              </button>
             </div>
           )}
 
@@ -1885,7 +2181,7 @@ const SettingsPage = () => {
             <div className="card p-6">
               <h3 className="text-lg font-semibold text-gray-100 mb-4">Integrasi Platform</h3>
               <div className="space-y-3">
-                {integrations.map(integration => (
+                {integrations.map((integration) => (
                   <div key={integration.name} className="flex items-center justify-between p-4 rounded-lg bg-surface-800 border border-surface-600">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-surface-700 flex items-center justify-center">
@@ -1898,7 +2194,11 @@ const SettingsPage = () => {
                     </div>
                     <button
                       onClick={() => showToast(`${integration.name} ${integration.status ? 'diputus' : 'terhubung'}`, 'success')}
-                      className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm ${integration.status ? 'bg-green-500/10 text-green-400 border border-green-500/30' : 'bg-surface-700 text-gray-300'}`}
+                      className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm ${
+                        integration.status
+                          ? 'bg-green-500/10 text-green-400 border border-green-500/30'
+                          : 'bg-surface-700 text-gray-300'
+                      }`}
                     >
                       {integration.status ? <CheckCircle2 size={16} /> : <Link2 size={16} />}
                       {integration.status ? 'Terhubung' : 'Hubungkan'}
@@ -1933,7 +2233,9 @@ const SettingsPage = () => {
                 </div>
                 <button className="btn-secondary">Aktifkan</button>
               </div>
-              <button onClick={() => showToast('Password berhasil diperbarui', 'success')} className="btn-primary">Perbarui Password</button>
+              <button onClick={() => showToast('Password berhasil diperbarui', 'success')} className="btn-primary">
+                Perbarui Password
+              </button>
             </div>
           )}
         </div>
@@ -1951,9 +2253,9 @@ const App = () => {
 
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
     const id = Date.now();
-    setToasts(prev => [...prev, { id, message, type }]);
+    setToasts((prev) => [...prev, { id, message, type }]);
     setTimeout(() => {
-      setToasts(prev => prev.filter(t => t.id !== id));
+      setToasts((prev) => prev.filter((t) => t.id !== id));
     }, 3000);
   };
 
@@ -1967,7 +2269,7 @@ const App = () => {
         <Sidebar collapsed={collapsed} toggleCollapse={() => setCollapsed(!collapsed)} />
         {mobileOpen && (
           <div className="fixed inset-0 z-[60] bg-black/70 lg:hidden" onClick={() => setMobileOpen(false)}>
-            <div className="w-60 h-full" onClick={e => e.stopPropagation()}>
+            <div className="w-60 h-full" onClick={(e) => e.stopPropagation()}>
               <Sidebar collapsed={false} toggleCollapse={() => {}} />
             </div>
           </div>
